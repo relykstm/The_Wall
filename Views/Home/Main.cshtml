@@ -18,6 +18,11 @@
     {
         <h3>@message.User.FirstName @message.User.LastName - @message.CreatedAt</h3>
         <p>@message.Content</p>
+        <br>
+        @if(message.User.UserId == ViewBag.LoggedInUser.UserId)
+        {
+            <button>Delete</button>
+        }
         @foreach(var comment in @message.Comments)
         {
         <h3>@comment.User.FirstName @comment.User.LastName - @comment.CreatedAt</h3>
