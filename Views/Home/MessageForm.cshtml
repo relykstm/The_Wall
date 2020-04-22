@@ -1,0 +1,8 @@
+@model The_Wall.Models.Wrapper;
+<form asp-controller="Home" asp-action="NewMessage" method="POST" asp-route-UserId="@ViewBag.LoggedInUser.UserId">
+    <label>Post a Message:</label>
+    <textarea asp-for="@Model.Message.Content"></textarea>
+    <span asp-validation-for="@Model.Message.Content"></span>
+    <br>
+    <input type="submit" value= "Post">
+</form>

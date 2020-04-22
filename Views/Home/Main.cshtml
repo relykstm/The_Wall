@@ -1,0 +1,37 @@
+@using The_Wall.Models;
+@model Wrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <a href = "logout">Logout</a>
+    <h1>CodingDojo Wall:</h1>
+    <h2>Welcome, @ViewBag.LoggedInUser.FirstName!</h2>
+
+    <partial name="MessageForm"/>
+    <h2>All Posts:</h2>
+    @foreach(var message in @Model.Messages)
+    {
+        <h3>@message.User.FirstName @message.User.LastName - @message.CreatedAt</h3>
+        <p>@message.Content</p>
+        @foreach(var comment in @message.Comments)
+        {
+        <h3>@comment.User.FirstName @comment.User.LastName - @comment.CreatedAt</h3>
+        <p>@comment.Content</p>
+        }
+        <form asp-controller="Home" asp-action="NewComment" method="POST" asp-route-UserId="@ViewBag.LoggedInUser.UserId">
+            <input type = "hidden" asp-for="@Model.Comment.MessageId" value="@message.MessageId">
+            <label>Post a Comment:</label>
+            <textarea asp-for="@Model.Comment.Content"></textarea>
+            <span asp-validation-for="@Model.Comment.Content"></span>
+            <br>
+            <input type="submit" value= "Post">
+        </form>
+    }
+
+</body>
+</html>
